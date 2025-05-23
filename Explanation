@@ -1,0 +1,32 @@
+T2.1:
+
+The brute-force algorithm explores all possible subsets of pallets to determine the combination that maximizes profit while staying within the truck’s weight capacity. This guarantees an optimal solution because no possibilities are ignored. However, its time complexity is exponential, specifically O(2^n), where n is the number of pallets. As a result, the algorithm becomes computationally infeasible as nn increases. For instance, with n=30n=30, the algorithm would evaluate over a billion combinations, which is impractical on standard hardware without aggressive pruning or parallelization. In practice, brute-force is only usable for small datasets (e.g., n≤20n≤20), where its simplicity and guaranteed correctness make it a useful baseline. For larger datasets, it serves more as a theoretical benchmark than a practical solution.
+Backtracking is an enhancement of the brute-force approach that avoids exploring combinations that are guaranteed to fail.
+
+In the original brute-force method, all 2n2n subsets are evaluated regardless of whether they exceed the capacity early on. Backtracking introduces a pruning condition:
+
+- If the current weight already exceeds the capacity, the algorithm stops exploring that branch.
+
+This dramatically reduces the number of recursive calls, especially when:
+
+- The capacity is tight
+
+- The weights are relatively large
+
+- Invalid subsets can be discarded early
+
+While the worst-case complexity remains O(2^n), in practice the number of explored states is often orders of magnitude smaller than in full brute-force.
+
+T2.2:
+
+The dynamic programming approach solves the problem efficiently with a time and space complexity of O(n⋅W), where n is the number of pallets and W is the truck's capacity. It guarantees an optimal solution and performs well for moderate input sizes.
+
+Its main limitation is memory usage. For large capacities, the 2D table can consume hundreds of megabytes or more, potentially leading to memory exhaustion or crashes. Performance is especially sensitive to the size of the capacity value.
+
+The 1D version improves space complexity to O(W) by reusing a single array. This allows dynamic programming to handle much larger capacities while maintaining optimal results. It is especially useful when capacity exceeds 100,000.
+
+T2.3:
+
+The greedy algorithm is very fast, with time complexity O(n⋅log⁡(n))O due to the initial sort. It performs well on large datasets and is suitable when speed is more important than optimality.
+
+However, it does not guarantee an optimal solution. On small datasets, its results can often match the optimal algorithms, but as the dataset grows, the heuristic nature of greedy selection can lead to suboptimal results. It also does not consistently respect tie-breaking rules, such as minimizing the number of pallets or selecting the lexicographically smallest set.

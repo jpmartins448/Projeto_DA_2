@@ -74,22 +74,20 @@ int main() {
             std::cin >> truckFile;
             std::cout << "Enter pallet file (e.g., Pallets_01.csv): ";
             std::cin >> palletFile;
+            pallets.clear();
 
 
             if (readTruckData(truckFile, capacity, numPallets) &&
                 readPalletData(palletFile, pallets)) {
-
-                    std::cout << "Pallet ID: " << pallets.at(2).id
-                    << ", Weight: " << pallets.at(2).weight
-                    << ", Profit: " << pallets.at(2).profit << std::endl;
           
                     int algoOption;
                     std::cout << "\nChoose an algorithm to run:\n";
                     std::cout << "1. Regular Brute-Force approach\n";
                     std::cout << "2. Brute-Force with backtracking\n";
                     std::cout << "3. Dynamic Programming approach\n";
-                    std::cout << "4. Greedy approach\n";
-                    std::cout << "5. Linear Integer Programming approach\n";
+                    std::cout << "4. Optimized Dynamic Programming\n";
+                    std::cout << "5. Greedy approach\n";
+                    std::cout << "6. Linear Integer Programming approach\n";
                     std::cout << "Enter option: ";
                     std::cin >> algoOption;
 
@@ -106,9 +104,12 @@ int main() {
                             runDynamicProgramming(pallets, capacity);
                             break;
                         case 4:
-                            runGreedyApproach(pallets, capacity);
+                            runDynamicProgramming1D(pallets, capacity);
                             break;
                         case 5:
+                            runGreedyApproach(pallets, capacity);
+                            break;
+                        case 6:
                             runLinearIntegerProgramming(pallets, capacity);
                             break;
                         default:
@@ -117,10 +118,8 @@ int main() {
             } else {
                 std::cout << "Error loading dataset files." << std::endl;
             }
-        } else if (option == 2) {
-            std::cout << "Exiting program." << std::endl;
-            break;
-        } else {
+        } 
+        else {
             std::cout << "Invalid option. Try again." << std::endl;
         }
     }
