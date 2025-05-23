@@ -70,18 +70,16 @@ void backtrackKnapsack(const vector<Pallet>& pallets, int index, int capacity,
     if (currentWeight > capacity)
         return;
 
-    // Option 1: skip current item
     backtrackKnapsack(pallets, index + 1, capacity,
                       currentWeight, currentProfit,
                       currentSet, maxProfit, bestSet);
 
-    // Option 2: include current item
     currentSet.push_back(pallets[index].id);
     backtrackKnapsack(pallets, index + 1, capacity,
                       currentWeight + pallets[index].weight,
                       currentProfit + pallets[index].profit,
                       currentSet, maxProfit, bestSet);
-    currentSet.pop_back(); // backtrack
+    currentSet.pop_back();
 }
 
 
@@ -117,7 +115,6 @@ void runDynamicProgramming(const vector<Pallet>& pallets, int capacity) {
     int n = pallets.size();
     vector<vector<DPCell>> dp(n + 1, vector<DPCell>(capacity + 1));
 
-    // Initialize first row with profit = 0
     for (int j = 0; j <= capacity; ++j) {
         dp[0][j] = {0, 0, {}};
     }
@@ -128,10 +125,8 @@ void runDynamicProgramming(const vector<Pallet>& pallets, int capacity) {
         int id = pallets[i - 1].id;
 
         for (int j = 0; j <= capacity; ++j) {
-            // Case 1: skip pallet i
             DPCell without = dp[i - 1][j];
 
-            // Case 2: include pallet i
             DPCell with = {0, 0, {}};
             if (j >= w) {
                 with = dp[i - 1][j - w];
@@ -140,7 +135,6 @@ void runDynamicProgramming(const vector<Pallet>& pallets, int capacity) {
                 with.subset.push_back(id);
             }
 
-            // Take the better one according to custom logic
             dp[i][j] = max(without, with);
         }
     }
@@ -164,7 +158,6 @@ void runDynamicProgramming1D(const vector<Pallet>& pallets, int capacity) {
         int p = pallets[i].profit;
         int id = pallets[i].id;
 
-        // Traverse backwards to prevent overwriting previous states
         for (int j = capacity; j >= w; --j) {
             DPCell with = dp[j - w];
             with.profit += p;
@@ -177,7 +170,6 @@ void runDynamicProgramming1D(const vector<Pallet>& pallets, int capacity) {
         }
     }
 
-    // Find best solution across all weights
     DPCell best = dp[0];
     for (int j = 1; j <= capacity; ++j) {
         if (best < dp[j]) {
