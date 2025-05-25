@@ -1,0 +1,13 @@
+method_name,problem_id,runtime,profit_achieved,optimal_profit,weight_achieved,optimal_weight,selected_pallets
+Python_PuLP,P5,0.1842,15.0,15.0,15.0,15.0,"1,3,7,15"
+CPP_Algorithm,P5,0.0008,CppException,15.0,CppException,15.0,[Errno 8] Exec format error: './pallet_optimizer.exe'
+Python_PuLP,P6,300.0057,Timeout,2047.0,Timeout,2047.0,Timeout
+CPP_Algorithm,P6,0.0008,CppException,2047.0,CppException,2047.0,[Errno 8] Exec format error: './pallet_optimizer.exe'
+Python_PuLP,P7,0.1085,987.0,987.0,610.0,610.0,"13,14"
+CPP_Algorithm,P7,0.0009,CppException,987.0,CppException,610.0,[Errno 8] Exec format error: './pallet_optimizer.exe'
+Python_PuLP,P8,0.1145,608.0,608.0,376.0,376.0,"3,5,7,9,11,13"
+CPP_Algorithm,P8,0.0008,CppException,608.0,CppException,376.0,[Errno 8] Exec format error: './pallet_optimizer.exe'
+Python_PuLP,P9,0.1016,945.0,945.0,15.0,15.0,"2,3,4,5,6,7,8,9,10,11,12,13,14,15,16"
+CPP_Algorithm,P9,0.0008,CppException,945.0,CppException,15.0,[Errno 8] Exec format error: './pallet_optimizer.exe'
+Python_PuLP,P10,0.0995,15.0,15.0,16.0,16.0,2
+CPP_Algorithm,P10,0.0008,CppException,15.0,CppException,16.0,[Errno 8] Exec format error: './pallet_optimizer.exe'
