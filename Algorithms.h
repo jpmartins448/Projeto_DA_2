@@ -9,6 +9,5 @@ void runBruteForceBacktrack(const std::vector<Pallet>&, int);
 void runDynamicProgramming(const std::vector<Pallet>&, int);
 void runDynamicProgramming1D(const std::vector<Pallet>&, int);
 void runGreedyApproach(const std::vector<Pallet>&, int);
-void runLinearIntegerProgramming(const std::vector<Pallet>&, int);
 
 #endif

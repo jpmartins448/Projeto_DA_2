@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <set>
 #include "Algorithms.h"
 
 using namespace std;
@@ -185,9 +186,6 @@ void runDynamicProgramming1D(const vector<Pallet>& pallets, int capacity) {
     cout << endl;
 }
 
-
-
-
 void runGreedyApproach(const vector<Pallet>& pallets, int capacity) {
     struct GreedyItem { //this is simply the DP struct from above but adapted to this problem
         int id;
@@ -229,11 +227,3 @@ void runGreedyApproach(const vector<Pallet>& pallets, int capacity) {
     }
     cout << "\n";
 }
-
-void runLinearIntegerProgramming(const std::vector<Pallet>&, int){
-
-}
-
-
-
-

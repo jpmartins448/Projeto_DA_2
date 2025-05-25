@@ -30,3 +30,9 @@ T2.3:
 The greedy algorithm is very fast, with time complexity O(n⋅log⁡(n))O due to the initial sort. It performs well on large datasets and is suitable when speed is more important than optimality.
 
 However, it does not guarantee an optimal solution. On small datasets, its results can often match the optimal algorithms, but as the dataset grows, the heuristic nature of greedy selection can lead to suboptimal results. It also does not consistently respect tie-breaking rules, such as minimizing the number of pallets or selecting the lexicographically smallest set.
+
+
+T2.4:
+
+We encode the 0–1 knapsack as a single mixed-integer program with one call to CBC (via PuLP), using a composite objective subject to the usual weight constraint. The problem formulation guarantees exact optimal solution with full lexicographic tie‐breaking. It does not work properly for large inputs (such as the dataset number 6).
+While the worst-case complexity remains O(2^n), in practice the number of explored states is often orders of magnitude smaller than in full brute-force. Space complexity of O(n) to store the binary variables and one weight constraint.

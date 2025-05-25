@@ -1,11 +1,11 @@
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <string>
+#include <cstdlib>
+#include <limits>
 #include "Algorithms.h"
-
 
 bool readTruckData(const std::string& filename, int& capacity, int& numPallets) {
     std::ifstream file(filename);
@@ -66,61 +66,77 @@ int main() {
 
     while (true) {
         showMenu();
-        std::cin >> option;
+
+        if (!(std::cin >> option)) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Try again." << std::endl << std::endl;
+            continue;
+        }
 
         if (option == 1) {
-            std::string truckFile, palletFile;
-            std::cout << "Enter truck file (e.g., TruckAndPallets_01.csv): ";
-            std::cin >> truckFile;
-            std::cout << "Enter pallet file (e.g., Pallets_01.csv): ";
-            std::cin >> palletFile;
-            pallets.clear();
+            std::string datasetNumber;
+            std::cout << "Enter dataset number (e.g., 5): ";
+            std::cin >> datasetNumber;
 
+            std::string truckFile = "TP" + datasetNumber + ".csv";
+            std::string palletFile = "P" + datasetNumber + ".csv";
+
+            std::cout << "Loading truck file: " << truckFile << std::endl;
+            std::cout << "Loading pallet file: " << palletFile << std::endl;
+
+            pallets.clear();
 
             if (readTruckData(truckFile, capacity, numPallets) &&
                 readPalletData(palletFile, pallets)) {
-          
-                    int algoOption;
-                    std::cout << "\nChoose an algorithm to run:\n";
-                    std::cout << "1. Regular Brute-Force approach\n";
-                    std::cout << "2. Brute-Force with backtracking\n";
-                    std::cout << "3. Dynamic Programming approach\n";
-                    std::cout << "4. Optimized Dynamic Programming\n";
-                    std::cout << "5. Greedy approach\n";
-                    std::cout << "6. Linear Integer Programming approach\n";
-                    std::cout << "Enter option: ";
-                    std::cin >> algoOption;
 
-                    
-                    
-                    switch (algoOption) {
-                        case 1:
-                            runBruteForce(pallets, capacity);
-                            break;
-                        case 2:
-                            runBruteForceBacktrack(pallets, capacity);
-                            break;
-                        case 3:
-                            runDynamicProgramming(pallets, capacity);
-                            break;
-                        case 4:
-                            runDynamicProgramming1D(pallets, capacity);
-                            break;
-                        case 5:
-                            runGreedyApproach(pallets, capacity);
-                            break;
-                        case 6:
-                            runLinearIntegerProgramming(pallets, capacity);
-                            break;
-                        default:
-                            std::cout << "Invalid option." << std::endl;
+                int algoOption;
+                std::cout << "\nChoose an algorithm to run:\n";
+                std::cout << "1. Regular Brute-Force approach\n";
+                std::cout << "2. Brute-Force with backtracking\n";
+                std::cout << "3. Dynamic Programming approach\n";
+                std::cout << "4. Optimized Dynamic Programming\n";
+                std::cout << "5. Greedy approach\n";
+                std::cout << "6. Linear Integer Programming approach\n";
+                std::cout << "Enter option: ";
+                std::cin >> algoOption;
+
+                switch (algoOption) {
+                    case 1:
+                        runBruteForce(pallets, capacity);
+                        break;
+                    case 2:
+                        runBruteForceBacktrack(pallets, capacity);
+                        break;
+                    case 3:
+                        runDynamicProgramming(pallets, capacity);
+                        break;
+                    case 4:
+                        runDynamicProgramming1D(pallets, capacity);
+                        break;
+                    case 5:
+                        runGreedyApproach(pallets, capacity);
+                        break;
+                    case 6: {
+                        std::string cmd = "python python.py " + truckFile + " " + palletFile;
+                        int ret = std::system(cmd.c_str());
+                        if (ret != 0) {
+                            std::cout << "Error running Python solver" << std::endl;
+                        }
+                        break;
                     }
+                    default:
+                        std::cout << "Invalid option." << std::endl;
+                }
+                std::cout << std::endl;
             } else {
-                std::cout << "Error loading dataset files." << std::endl;
+                std::cout << "Error loading dataset files." << std::endl << std::endl;
             }
-        } 
-        else {
-            std::cout << "Invalid option. Try again." << std::endl;
+        } else if (option == 2) {
+            std::cout << "Exiting..." << std::endl;
+            break;
+        } else {
+            std::cout << "Invalid option. Try again." << std::endl << std::endl;
         }
     }
 
